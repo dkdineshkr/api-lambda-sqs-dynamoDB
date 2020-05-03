@@ -1,0 +1,42 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: 'sam-db
+
+  Sample SAM Template for sam-db
+
+  '
+Globals:
+  Function:
+    Timeout: 20
+Resources:
+  GetDynamoDBItemsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: GetDynamoDBItemsFunction
+      Handler: helloworld.App::handleRequest
+      Runtime: java8
+      Policies: AmazonDynamoDBFullAccess
+      MemorySize: 512
+      Events:
+        HelloWorld:
+          Type: Api
+          Properties:
+            Path: /hello
+            Method: get
+Outputs:
+  HelloWorldApi:
+    Description: API Gateway endpoint URL for Prod stage for Hello World function
+    Value:
+      Fn::Sub: https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/
+  GetDynamoDBItemsFunction:
+    Description: Hello World Lambda Function ARN
+    Value:
+      Fn::GetAtt:
+      - GetDynamoDBItemsFunction
+      - Arn
+  GetDynamoDBItemsFunctionIamRole:
+    Description: Implicit IAM Role created for Hello World function
+    Value:
+      Fn::GetAtt:
+      - GetDynamoDBItemsFunctionRole
+      - Arn
