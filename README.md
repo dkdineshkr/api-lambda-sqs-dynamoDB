@@ -1,4 +1,7 @@
 
+
+
+
 For Project sam2-app: Its lambda function triggered by SQS events
 ========================================================================
 
